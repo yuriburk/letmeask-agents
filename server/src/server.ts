@@ -6,6 +6,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import './db/connection.ts'
 import { env } from './env.ts'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -19,6 +20,4 @@ app.get('/health', () => {
   return 'Ok'
 })
 
-app.listen({ port: env.PORT }).then(() => {
-  console.log(`Server is running on ${env.PORT}`)
-})
+app.listen({ port: env.PORT })

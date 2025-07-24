@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 type GetRoomsAPIResponse = Array<{ id: string; name: string }>
 
 export function CreateRoom() {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['get-rooms'],
     queryFn: async () => {
       const response = await fetch('http://localhost:3000/rooms')

@@ -20,7 +20,11 @@ export function CreateRoom() {
 
       {isLoading
         ? 'Loading'
-        : data?.map((room) => <p key={room.id}>{room.name}</p>)}
+        : data?.map((room) => (
+            <Link key={room.id} to={`/room/${room.id}`}>
+              {room.name}
+            </Link>
+          ))}
 
       <Link to="/room">Acessar sala</Link>
     </div>

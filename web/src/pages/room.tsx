@@ -8,7 +8,7 @@ export function Room() {
   const { id } = useParams<RoomParams>()
 
   if (!id) {
-    return <Navigate to="/" replace />
+    return <Navigate replace to="/" />
   }
 
   return <div>Room details {id}</div>

@@ -35,7 +35,7 @@ interface QuestionFormProps {
 }
 
 export function QuestionForm({ roomId }: QuestionFormProps) {
-  const { mutateAsync: createQuestion } = useCreateQuestion()
+  const { mutateAsync: createQuestion } = useCreateQuestion({ roomId })
 
   const form = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),
@@ -45,7 +45,7 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
   })
 
   async function handleCreateQuestion({ question }: CreateQuestionFormData) {
-    await createQuestion({ roomId, question })
+    await createQuestion({ question })
     form.reset()
   }
 

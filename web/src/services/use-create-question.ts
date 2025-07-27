@@ -1,7 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-type CreateQuestionRequest = {
+type UseCreateQuestionsProps = {
   roomId: string
+}
+
+type CreateQuestionRequest = {
   question: string
 }
 
@@ -9,12 +12,12 @@ type CreateQuestionResponse = {
   roomId: string
 }
 
-export function useCreateQuestion() {
+export function useCreateQuestion({ roomId }: UseCreateQuestionsProps) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationKey: ['create-room'],
-    mutationFn: async ({ roomId, question }: CreateQuestionRequest) => {
+    mutationKey: ['create-question'],
+    mutationFn: async ({ question }: CreateQuestionRequest) => {
       const response = await fetch(
         `http://localhost:3000/rooms/${roomId}/questions`,
         {
@@ -30,7 +33,9 @@ export function useCreateQuestion() {
       return result
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-rooms'] })
+      queryClient.invalidateQueries({
+        queryKey: ['get-room-questions', roomId],
+      })
     },
   })
 }

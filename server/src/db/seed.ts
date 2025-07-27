@@ -17,6 +17,7 @@ await seed(db, schema).refine((builder) => {
           maxDate: '2025-05-25',
         }),
       },
+      with: { questions: 5 },
     },
   }
 })

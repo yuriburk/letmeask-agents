@@ -8,6 +8,13 @@
       "when": 1753142451805,
       "tag": "0000_jittery_garia",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1753627925820,
+      "tag": "0001_thankful_nova",
+      "breakpoints": true
     }
   ]
 }

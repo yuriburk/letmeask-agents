@@ -8,6 +8,7 @@ import {
 
 import './db/connection.ts'
 import { createRoomRoute } from './db/http/routes/create-room.ts'
+import { getRoomQuestionsRoute } from './db/http/routes/get-room-questions.ts'
 import { getRoomsRoute } from './db/http/routes/get-rooms.ts'
 import { env } from './env.ts'
 
@@ -24,5 +25,6 @@ app.get('/health', () => {
 
 app.register(getRoomsRoute)
 app.register(createRoomRoute)
+app.register(getRoomQuestionsRoute)
 
 app.listen({ port: env.PORT })

@@ -1,32 +1,37 @@
-import { fastifyCors } from '@fastify/cors'
-import { fastify } from 'fastify'
+import { fastifyCors } from "@fastify/cors";
+import fastifyMultipart from "@fastify/multipart";
+import { fastify } from "fastify";
 import {
   serializerCompiler,
   validatorCompiler,
   type ZodTypeProvider,
-} from 'fastify-type-provider-zod'
+} from "fastify-type-provider-zod";
 
-import './db/connection.ts'
-import { createQuestionRoute } from './db/http/routes/create-question.ts'
-import { createRoomRoute } from './db/http/routes/create-room.ts'
-import { getRoomQuestionsRoute } from './db/http/routes/get-room-questions.ts'
-import { getRoomsRoute } from './db/http/routes/get-rooms.ts'
-import { env } from './env.ts'
+import "./db/connection.ts";
+import { createQuestionRoute } from "./db/http/routes/create-question.ts";
+import { createRoomRoute } from "./db/http/routes/create-room.ts";
+import { getRoomQuestionsRoute } from "./db/http/routes/get-room-questions.ts";
+import { uploadAudioRoute } from "./db/http/routes/upload-audio.ts";
+import { getRoomsRoute } from "./db/http/routes/get-rooms.ts";
+import { env } from "./env.ts";
 
-const app = fastify().withTypeProvider<ZodTypeProvider>()
+const app = fastify().withTypeProvider<ZodTypeProvider>();
 
-app.register(fastifyCors, { origin: 'http://localhost:5173' })
+app.register(fastifyCors, { origin: "http://localhost:5173" });
 
-app.setSerializerCompiler(serializerCompiler)
-app.setValidatorCompiler(validatorCompiler)
+app.register(fastifyMultipart);
 
-app.get('/health', () => {
-  return 'Ok'
-})
+app.setSerializerCompiler(serializerCompiler);
+app.setValidatorCompiler(validatorCompiler);
 
-app.register(getRoomsRoute)
-app.register(createRoomRoute)
-app.register(getRoomQuestionsRoute)
-app.register(createQuestionRoute)
+app.get("/health", () => {
+  return "Ok";
+});
 
-app.listen({ port: env.PORT })
+app.register(getRoomsRoute);
+app.register(createRoomRoute);
+app.register(getRoomQuestionsRoute);
+app.register(createQuestionRoute);
+app.register(uploadAudioRoute);
+
+app.listen({ port: env.PORT });

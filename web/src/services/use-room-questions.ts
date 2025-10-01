@@ -1,26 +1,26 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from "@tanstack/react-query";
 
 type UseRoomQuestionsProps = {
-  roomId: string
-}
+  roomId: string;
+};
 
-type GetRoomQuestionsResponse = Array<{
-  id: string
-  question: string
-  answer?: string
-  createdAt: string
-}>
+export type GetRoomQuestionsResponse = Array<{
+  id: string;
+  question: string;
+  answer?: string;
+  createdAt: string;
+}>;
 
 export function useRoomQuestions({ roomId }: UseRoomQuestionsProps) {
   return useQuery({
-    queryKey: ['get-room-questions', roomId],
+    queryKey: ["get-room-questions", roomId],
     queryFn: async () => {
       const response = await fetch(
         `http://localhost:3000/rooms/${roomId}/questions`
-      )
-      const result: GetRoomQuestionsResponse = await response.json()
+      );
+      const result: GetRoomQuestionsResponse = await response.json();
 
-      return result
+      return result;
     },
-  })
+  });
 }
